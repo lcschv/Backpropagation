@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import numpy as np
 
 class Input(object):
 	"""docstring for Input"""
@@ -6,10 +7,9 @@ class Input(object):
 		super(Input, self).__init__()
 		# self.arg = arg
 		
-	def readfile(self, filein):
+	def readTrainSet(self, filein):
 		input_file = open(filein, 'r')
 		for i in input_file:
 			i = i.rstrip()
 			vet = i.split(",")
-			print vet[0]
-
+		return vet[0],vet[1:]

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import argparse
 import sys
-from src.input import Input
+# from src.input import Input
 from src.neuralnet import NeuralNet
 __author__ = 'Lucas Chaves'
 
@@ -29,13 +29,12 @@ def get_args():
 
 def main():
 	filein, fileout, algorithm = get_args()
-	input = Input()
-	neuralnet = NeuralNet()
-	input.readfile(filein)
-	neuralnet.setOutputNeurons()
+	
+	neuralnet = NeuralNet(filein)
+
+	neuralnet.setOutputUnits()
 	output_file = open(fileout, 'w')
 
 
 if __name__ == "__main__":
 	main()
-	print a

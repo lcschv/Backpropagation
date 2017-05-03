@@ -1,1 +1,1 @@
-# Backpropagation Algorithm for handwriting recognition
+# Handwritten Digit Recognition with a Backpropagation Neural Network
