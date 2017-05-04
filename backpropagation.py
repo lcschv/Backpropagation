@@ -8,7 +8,7 @@ __author__ = 'Lucas Chaves'
 
 def get_args():
 	#Description of the program
-	parser = argparse.ArgumentParser(description='Realize the handwriting recognition.')
+	parser = argparse.ArgumentParser(description='Realize the hand-written digits recognition.')
 	#Add arguments to the program
 	parser.add_argument(
 		"-i", "--input", help="Directs the input to the dataset of your choice", required=True)
