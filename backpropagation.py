@@ -25,6 +25,7 @@ def get_args():
 		"-e", "--ephocs", type=int, help="Number of epochs that you want to compute.", required=True)
 	#Array containing all the prguments passed to the program
 	args = parser.parse_args()
+	
 	#Assign args to variables
 	input_file = args.input
 	output_file = args.output
@@ -33,7 +34,6 @@ def get_args():
 	num_neurons = args.num_neurons
 	ephocs = args.ephocs
 
-	
 	#return variables
 	return input_file, output_file, batch_size, learning_rate, num_neurons, ephocs
 

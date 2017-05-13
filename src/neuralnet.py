@@ -5,7 +5,7 @@ import math
 from scipy.special import expit
 import pandas as pd
 from sklearn.metrics import log_loss
-
+import time
 class NeuralNet(object):
 
 	def __init__(self, filein, fileout, batch_size, learning_rate, num_neurons, ephocs):
@@ -22,7 +22,7 @@ class NeuralNet(object):
 		self.BackpropagationAlgorithm()
 
 	def BackpropagationAlgorithm(self):
-
+		self.initial_time = time.time()
 		for epoch in xrange(self.ephocs):
 
 			for batch in range(0,len(self.input), self.batch_size):
@@ -37,9 +37,10 @@ class NeuralNet(object):
 
 	### Just for tests..
 	def calcEpochErr(self, epoch):
+		diff = time.time() - self.initial_time	
 		l1_test = expit(np.dot(self.input,self.weights))
 		l2_test = expit(np.dot(l1_test,self.weightsOut))
-		print("Cross Entropy empirical error at epoch "+str(epoch)+": "+str(log_loss(self.labels,l2_test)))
+		self.output_file.write(str(diff) +"	"+str(epoch)+"	"+str(log_loss(self.labels,l2_test))+"\n")
 
 	### Calculates the output error and the error of the hidden layer
 	def calculateError(self, batch):
@@ -58,7 +59,7 @@ class NeuralNet(object):
 		self.input = np.c_[bias, self.input]
 		self.weights = np.random.uniform(-1,1,[len(self.input[0]),self.numNeurons])
 		self.weightsOut = np.random.uniform(-1,1,[self.numNeurons,10])
-		output_file = open(self.fileout, 'w')
+		self.output_file = open(self.fileout, 'w')
 		
 
 	### self.y corresponds to the results of the neurons of the hidden layer
