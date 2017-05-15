@@ -1,70 +1,29 @@
-#!/bin/sh
-mkdir output_gd
-mkdir output_sgd
-mkdir output_mb10
-mkdir output_mb50gd
+#!/bin/bash
+mkdir saidas_gd
+mkdir saidas_sgd
+mkdir saidas_mb10
+mkdir saidas_mb50
 
-echo "Starting processing GD.."
-python backpropagation.py -i input/data_tp1 -o output_gd/neuros_log_GD_002_25.txt -b 5000 -lr 0.02 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_gd/neuros_log_GD_002_50.txt -b 5000 -lr 0.02 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_gd/neuros_log_GD_002_100.txt -b 5000 -lr 0.02 -n 100 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_gd/neuros_log_GD_005_25.txt -b 5000 -lr 0.5 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_gd/neuros_log_GD_005_50.txt -b 5000 -lr 0.5 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_gd/neuros_log_GD_005_100.txt -b 5000 -lr 0.5 -n 100 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_gd/neuros_log_GD_1_25.txt -b 5000 -lr 1 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_gd/neuros_log_GD_1_50.txt -b 5000 -lr 1 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_gd/neuros_log_GD_1_100.txt -b 5000 -lr 1 -n 100 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_gd/neuros_log_GD_10_25.txt -b 5000 -lr 10 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_gd/neuros_log_GD_10_50.txt -b 5000 -lr 10 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_gd/neuros_log_GD_10_100.txt -b 5000 -lr 10 -n 100 -e 1000
-echo "Done processing GD.."
+folders=("gd" "sgd" "mb10" "mb50")
+lr=(0.02 0.5 1 10)
+names=("002" "005" "1" "10")
+batchs=(5000 1 10 50)
+neurons=(25 50 100)
 
+#Script to run all the different parameters ...
+for ((i=0;i<4;i++));
+do 	
+	for ((j=0;j<4;j++))
+	do
+		for n in "${neurons[@]}"
+		do
+			echo "python backpropagation.py -i input/data_tp1 -o output_${folders[$i]}/neuros_log_${folders[$i]}_${names[$j]}_$n.txt -b ${batchs[$i]} -lr ${lr[j]} -n $n -e 10"
+			python backpropagation.py -i input/data_tp1 -o saidas_${folders[$i]}/neuros_log_${folders[$i]}_${names[$j]}_$n.txt -b ${batchs[$i]} -lr ${lr[j]} -n $n -e 10
 
-echo "Starting MB_10 processing.."
-python backpropagation.py -i input/data_tp1 -o output_mb10/neuros_log_mb10_002_25.txt -b 10 -lr 0.02 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb10/neuros_log_mb10_002_50.txt -b 10 -lr 0.02 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb10/neuros_log_mb10_002_100.txt -b 10 -lr 0.02 -n 100 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb10/neuros_log_mb10_005_25.txt -b 10 -lr 0.5 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb10/neuros_log_mb10_005_50.txt -b 10 -lr 0.5 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb10/neuros_log_mb10_005_100.txt -b 10 -lr 0.5 -n 100 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb10/neuros_log_mb10_1_25.txt -b 10 -lr 1 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb10/neuros_log_mb10_1_50.txt -b 10 -lr 1 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb10/neuros_log_mb10_1_100.txt -b 10 -lr 1 -n 100 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb10/neuros_log_mb10_10_25.txt -b 10 -lr 10 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb10/neuros_log_mb10_10_50.txt -b 10 -lr 10 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb10/neuros_log_mb10_10_100.txt -b 10 -lr 10 -n 100 -e 1000
-echo "Done processing MB_10.."
+		done
+	done
+done
 
-
-echo "Start processing MB_50.."
-python backpropagation.py -i input/data_tp1 -o output_mb50gd/neuros_log_mb50_002_25.txt -b 50 -lr 0.02 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb50/neuros_log_mb50_002_50.txt -b 50 -lr 0.02 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb50/neuros_log_mb50_002_100.txt -b 50 -lr 0.02 -n 100 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb50/neuros_log_mb50_005_25.txt -b 50 -lr 0.5 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb50/neuros_log_mb50_005_50.txt -b 50 -lr 0.5 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb50/neuros_log_mb50_005_100.txt -b 50 -lr 0.5 -n 100 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb50/neuros_log_mb50_1_25.txt -b 50 -lr 1 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb50/neuros_log_mb50_1_50.txt -b 50 -lr 1 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb50/neuros_log_mb50_1_100.txt -b 50 -lr 1 -n 100 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb50/neuros_log_mb50_10_25.txt -b 50 -lr 10 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb50/neuros_log_mb50_10_50.txt -b 50 -lr 10 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_mb50/neuros_log_mb50_10_100.txt -b 50 -lr 10 -n 100 -e 1000
-echo "Done processing MB.."
-
-
-echo "Starting SGD processing.."
-python backpropagation.py -i input/data_tp1 -o output_sgd/neuros_log_SGD_002_25.txt -b 1 -lr 0.02 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_sgd/neuros_log_SGD_002_50.txt -b 1 -lr 0.02 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_sgd/neuros_log_SGD_002_100.txt -b 1 -lr 0.02 -n 100 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_sgd/neuros_log_SGD_005_25.txt -b 1 -lr 0.5 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_sgd/neuros_log_SGD_005_50.txt -b 1 -lr 0.5 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_sgd/neuros_log_SGD_005_100.txt -b 1 -lr 0.5 -n 100 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_sgd/neuros_log_SGD_1_25.txt -b 1 -lr 1 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_sgd/neuros_log_SGD_1_50.txt -b 1 -lr 1 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_sgd/neuros_log_SGD_1_100.txt -b 1 -lr 1 -n 100 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_sgd/neuros_log_SGD_10_25.txt -b 1 -lr 10 -n 25 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_sgd/neuros_log_SGD_10_50.txt -b 1 -lr 10 -n 50 -e 1000
-python backpropagation.py -i input/data_tp1 -o output_sgd/neuros_log_SGD_10_100.txt -b 1 -lr 10 -n 100 -e 1000
-echo "Done processing SGD.."
-
-# etc.
+# Calling the script to create plots ..
+mkdir Results2
+python plot_results.py
